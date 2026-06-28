@@ -1,0 +1,35 @@
+name: Java CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/**.java'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/**.java'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install JDK 11
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-11-jdk
+
+      - name: Compile all source files
+        run: |
+          find src -name "*.java" > sources.txt
+          javac @sources.txt
+
+      - name: Handle Failure
+        if: failure()
+        run: |
+          echo "❌ Compilation failed. Please check the code."
+          exit 1
+          
