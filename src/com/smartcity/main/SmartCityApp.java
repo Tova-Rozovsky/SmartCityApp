@@ -454,6 +454,7 @@ public class SmartCityApp {
 
     // Search places by location from MySQL database
     private static void searchByLocation() {
+        
         System.out.print("\nEnter location to search: ");
         String searchLocation = scanner.nextLine();
 
