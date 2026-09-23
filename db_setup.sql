@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(20) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
     role VARCHAR(20) DEFAULT 'USER'
 );
 
@@ -18,6 +19,11 @@ CREATE TABLE IF NOT EXISTS places (
     location VARCHAR(100) NOT NULL,
     description TEXT
 );
+-- Add Coordinate support
+ALTER TABLE places
+    ADD COLUMN latitude DOUBLE,
+    ADD COLUMN longitude DOUBLE;
 
 -- Insert sample admin account (Change password in production!)
-INSERT IGNORE INTO users (username, password, role) VALUES ('admin', 'Admin@123', 'ADMIN');
+INSERT IGNORE INTO users (username, password, email, role)
+VALUES ('admin', 'Admin@123', 'admin@example.com', 'ADMIN');
